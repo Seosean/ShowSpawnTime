@@ -1,7 +1,7 @@
 # ShowSpawnTime  
 
 ## Latest Version
-**1.14.4**
+**1.14.3**
 ****
 ## Updates Logs
 ### Update 1.15 2023/8/28  
