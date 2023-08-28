@@ -1,7 +1,8 @@
 # ShowSpawnTime  
 
 ## Latest Version
-**1.14.3**
+[**1.14.4 Downloade**](https://github.com/Seosean/ShowSpawnTime/releases/download/sst/ShowSpawnTime-1.14.4.jar)
+*(Absolutely same as 1.15 BETA 1)*
 ****
 ## Updates Logs
 ### Update 1.15 2023/8/28  
