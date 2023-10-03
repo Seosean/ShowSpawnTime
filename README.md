@@ -19,6 +19,7 @@
 · Now if you installed ZombiesAutoSplits, you can directly edit its HUD position with /ssthud.  
 · Added commands of /sst mode normal/hard/rip and /sst ins/max/ss 2/3/4/5/6/7 to correct related feature if a incorrection or a closing of minecraft happens.  
 · Added an auto-check of updates and a command of /sst checkupdate to check if you are using on a latest version.  
+· Added a new feature that player invisibility is now integrated into ShowSpawnTime, it has a transparent effect when a player approuches. Turn on it in keyboard control.
 · Enhanced some features.  
 · Fixed few internal bugs.  
   
