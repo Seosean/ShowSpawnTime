@@ -1,7 +1,11 @@
 # ShowSpawnTime  
   
-## Latest Version
+## Latest Version of ShowSpawnTime
 [**1.15.0 Download**](https://github.com/Seosean/ShowSpawnTime/releases/download/1.15.0/ShowSpawnTime-1.15.0.jar)  
+
+## The most necessary module to this mod.
+[**ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/tree/Mixin)  
+[**Download ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/releases/download/1.1/ZombiesAutoSplits-1.1.jar)  
   
 ****
 ## Updates Logs
