@@ -15,12 +15,12 @@ public class ParseModes {
         if(message.contains(":")){
             return;
         }
-        if(message.contains("The game starts in 10 seconds!") || message.contains("游戏将在10秒开始")){
+        if(message.contains("The game starts in 10 seconds!") || message.contains("游戏将在10秒开始") || message.contains("遊戲將在 10 秒後開始")){
             diff = 1;
         }
-        if(message.contains("Hard Difficulty") || message.contains("困难")){
+        if(message.contains("Hard Difficulty") || message.contains("困难") || message.contains("困難")){
             diff = 2;
-        }else if(message.contains("RIP Difficulty") || message.contains("安息")){
+        }else if(message.contains("RIP Difficulty") || message.contains("安息") || message.contains("RIP") ){
             diff = 3;
         }
     }

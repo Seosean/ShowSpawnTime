@@ -61,7 +61,7 @@ public abstract class MixinGuiIngame {
     private String modifyArgumentText(String text) {
         if(ShowSpawnTime.Wave3LeftNotice) {
             if (isAllLegit()) {
-                if (text.contains("Zombies Left") || text.contains("剩余僵尸")) {
+                if (text.contains("Zombies Left") || text.contains("剩余僵尸") || text.contains("剩下殭屍數")) {
                     if (isInDE()) {
                         boolean isCleared = Integer.valueOf((text.split("§")[2].replace("a", "").trim())) <= LeftNotice.getDEW3Left(parseSidebar(), diff);
                         return text.concat(EnumChatFormatting.WHITE + " | " + (isCleared ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + ((LeftNotice.getDEW3Left(parseSidebar(), diff) == 0) ? "" : LeftNotice.getDEW3Left(parseSidebar(), diff)));
@@ -74,7 +74,7 @@ public abstract class MixinGuiIngame {
         }
         if(ShowSpawnTime.PlayerHealthNotice) {
             if(isAllLegit()) {
-                if (text.contains("§") && text.contains(":")) {
+                if (text.contains("§") && (text.contains(":") || text.contains("："))) {
                     String regex = "(?:[\uD83C\uDF00-\uD83D\uDDFF]|[\uD83E\uDD00-\uD83E\uDDFF]|[\uD83D\uDE00-\uD83D\uDE4F]|[\uD83D\uDE80-\uD83D\uDEFF]|[\u2600-\u26FF]\uFE0F?|[\u2700-\u27BF]\uFE0F?|\u24C2\uFE0F?|[\uD83C\uDDE6-\uD83C\uDDFF]{1,2}|[\uD83C\uDD70\uD83C\uDD71\uD83C\uDD7E\uD83C\uDD7F\uD83C\uDD8E\uD83C\uDD91-\uD83C\uDD9A]\uFE0F?|[\u0023\u002A\u0030-\u0039]\uFE0F?\u20E3|[\u2194-\u2199\u21A9-\u21AA]\uFE0F?|[\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55]\uFE0F?|[\u2934\u2935]\uFE0F?|[\u3030\u303D]\uFE0F?|[\u3297\u3299]\uFE0F?|[\uD83C\uDE01\uD83C\uDE02\uD83C\uDE1A\uD83C\uDE2F\uD83C\uDE32-\uD83C\uDE3A\uD83C\uDE50\uD83C\uDE51]\uFE0F?|[\u203C\u2049]\uFE0F?|[\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE]\uFE0F?|[\u00A9\u00AE]\uFE0F?|[\u2122\u2139]\uFE0F?|\uD83C\uDC04\uFE0F?|\uD83C\uDCCF\uFE0F?|[\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA]\uFE0F?)";
                     String colorRegex = "§[a-zA-Z0-9]";
                     String playerName = "";
@@ -86,7 +86,7 @@ public abstract class MixinGuiIngame {
                     if (playerName.length() >= 2) {
                         if (getPlayerEntity(playerName) != null) {
                             String trippedText = text.replaceAll(regex, "").replaceAll(colorRegex, "").trim();
-                            if (trippedText.contains(": REVIVE") || trippedText.contains(": QUIT") || trippedText.contains(": DEAD") || trippedText.contains("： 等待救援") || trippedText.contains(": 已退出") || trippedText.contains(": 已死亡") ) {
+                            if (trippedText.contains(": REVIVE") || trippedText.contains(": QUIT") || trippedText.contains(": DEAD") || trippedText.contains("： 等待救援") || trippedText.contains("： 已退出") || trippedText.contains("： 已死亡") || trippedText.contains("： 等待復活") || trippedText.contains("： 已退出") || trippedText.contains("： 已死亡")) {
                                 return text;
                             }
                             float health = getPlayerEntity(playerName).getHealth();
@@ -309,7 +309,7 @@ public abstract class MixinGuiIngame {
                 return;
             }
             for (int i = 105; i > 0; i--) {
-                if (titleText.contains("赢")) {
+                if (titleText.contains("赢") || titleText.contains("贏")) {
                     recordedRound = 106;
                     record = true;
                     break;
@@ -335,7 +335,7 @@ public abstract class MixinGuiIngame {
                 return;
             }
             for (int i = 30; i > 0; i--) {
-                if (titleText.contains("赢")) {
+                if (titleText.contains("赢") || titleText.contains("贏")) {
                     recordedRound = 31;
                     record = true;
                     break;

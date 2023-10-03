@@ -345,9 +345,9 @@ public class PowerUpDetect {
                 }else if(parseSidebar() == 4 && insRound == 0){
                     insRound = 3;
                 }
-            }else if(message.contains("Double Gold") || message.contains("双倍") || message.contains("雙倍")){
+            }else if(message.contains("Double Gold") || message.contains("双倍金钱") || message.contains("雙倍金幣")){
                 dgPicked = true;
-            }else if(message.contains("Max Ammo") || message.contains("满载") || message.contains("彈藥")){
+            }else if(message.contains("Max Ammo") || message.contains("弹药满载") || message.contains("填滿彈藥")){
                 maxPicked = true;
                 if(maxRound == 0 && parseSidebar() == 2){
                     maxRound = 2;
@@ -377,7 +377,7 @@ public class PowerUpDetect {
                 }
             }else if(message.contains("Carpenter") || message.contains("木匠")){
                 carPicked = true;
-            }else if(message.contains("Bonus Gold") || message.contains("金钱加成") || message.contains("額外")){
+            }else if(message.contains("Bonus Gold") || message.contains("金钱加成") || message.contains("額外金幣")){
                 bgPicked = true;
             }
         }
