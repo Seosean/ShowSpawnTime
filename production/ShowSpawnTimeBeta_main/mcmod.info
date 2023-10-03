@@ -1,0 +1,16 @@
+[
+{
+  "modid": "showspawntime",
+  "name": "Show Spawn Time",
+  "description": "To show when zombies spawn per round but only in Dead End map. There is no plan to add BB or AA feature.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "seosean.com",
+  "updateUrl": "",
+  "authorList": ["Seosean"],
+  "credits": "To show when zombies spawn per round",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

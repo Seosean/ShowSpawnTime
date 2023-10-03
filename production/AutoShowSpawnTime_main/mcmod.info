@@ -1,0 +1,16 @@
+[
+{
+  "modid": "showspawntime",
+  "name": "Show Spawn Time",
+  "description": "idk how",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Seosean"],
+  "credits": "To show when zombies spawn per round",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

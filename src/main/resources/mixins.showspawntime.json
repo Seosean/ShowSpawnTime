@@ -1,0 +1,15 @@
+{
+  "package": "com.seosean.showspawntime.mixins",
+  "refmap": "mixins.showspawntime.refmap.json",
+  "compatibilityLevel": "JAVA_8",
+  "verbose": true,
+  "mixins": [
+    "MixinLayerCape",
+    "MixinModelBase",
+    "MixinModelBiped",
+    "MixinModelPlayer",
+    "MixinRender",
+    "MixinGuiIngame",
+    "MixinWorldClient"
+  ]
+}
