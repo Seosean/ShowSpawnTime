@@ -5,6 +5,11 @@
 
 ## The most necessary module to this mod.
 [**ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/tree/Mixin)  
+  
+What's the difference between Seosean's and Thamid's?  
+Seosean's one was forked from thamid's, I added a feature that you can now edit the position of HUD(the render of timer) with /splitshud or /ssthud.  
+(if you installed ShowSpawnTime, you can edit ZombiesAutoSplits's HUD with ShowSpawnTime's /ssthud command, and edit their HUDs together.)  
+  
 [**Download ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/releases/download/1.1/ZombiesAutoSplits-1.1.jar)  
   
 ****
