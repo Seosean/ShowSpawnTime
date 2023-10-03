@@ -81,20 +81,25 @@ public class CommandCommon extends CommandBase{
                     commands = new ChatComponentText(EnumChatFormatting.YELLOW + "· " + EnumChatFormatting.GREEN + "/sst mode normal/hard/rip " + EnumChatFormatting.YELLOW + "用于在你掉线重连之后，纠正游戏难度的检测结果" + EnumChatFormatting.GRAY  + " (显示第三波剩余僵尸的功能)" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst ins/max/ss 2/3/5/6/7 " + EnumChatFormatting.YELLOW + "用于在你掉线重连后，纠正增益回合的检测结果 " + EnumChatFormatting.GRAY  + "(显示增益倒计时的功能)" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sstconfig " + EnumChatFormatting.YELLOW + "用于打开配置界面" +
-                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "用于打开GUI界面。 "  + EnumChatFormatting.GRAY + "(如果你安装了Seosean的ZombiesAutoSplits，你就可以通过本指令修改ZombiesAutoSplits的HUD位置，你所编辑的内容会被正常应用)" );
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "用于打开GUI界面。 "  + EnumChatFormatting.GRAY + "(如果你安装了Seosean的ZombiesAutoSplits，你就可以通过本指令修改ZombiesAutoSplits的HUD位置，你所编辑的内容会被正常应用)" +
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst checkupdate " + EnumChatFormatting.YELLOW + "用于检测更新");
                 }else if(isTraditionalChinese()) {
                     commands = new ChatComponentText(EnumChatFormatting.YELLOW + "· " + EnumChatFormatting.GREEN + "/sst mode normal/hard/rip " + EnumChatFormatting.YELLOW + "用於在你掉線重連之後，糾正遊戲難度的檢測結果" + EnumChatFormatting.GRAY  + " (顯示第三波剩餘僵屍的功能)" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst ins/max/ss 2/3/5/6/7 " + EnumChatFormatting.YELLOW + "用於在你掉線重連後，糾正增益回合的檢測結果" + EnumChatFormatting.GRAY  + " （顯示增益倒數計時的功能）" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sstconfig " + EnumChatFormatting.YELLOW + "用於打開配寘介面" +
-                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "用于打開GUI介面。 "  + EnumChatFormatting.GOLD + "(如果你安裝了Seosean的ZombiesAutoSplits，你就可以通過本指令修改ZombiesAutoSplits的HUD位置，你所編輯的內容會被正常應用)" );
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "用于打開GUI介面。 "  + EnumChatFormatting.GOLD + "(如果你安裝了Seosean的ZombiesAutoSplits，你就可以通過本指令修改ZombiesAutoSplits的HUD位置，你所編輯的內容會被正常應用)" +
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst checkupdate " + EnumChatFormatting.YELLOW + "用於檢測更新");
                 }else {
                     commands = new ChatComponentText(EnumChatFormatting.YELLOW + "· " + EnumChatFormatting.GREEN + "/sst mode normal/hard/rip " + EnumChatFormatting.GRAY + "to correct the mode detection if you disconnect." + EnumChatFormatting.GRAY  + " (The feature about wave 3rd zombies display in sidebar.)" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst ins/max/ss 2/3/5/6/7 " + EnumChatFormatting.YELLOW + "to correct the powerups pattern detection if you disconnect." + EnumChatFormatting.GRAY  + " (The feature about showing countdown of powerups.)" +
                             EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sstconfig " + EnumChatFormatting.YELLOW + "to open config GUI." +
-                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "to open HUD GUI. "  + EnumChatFormatting.GRAY + "(You can edit the HUD of ZombiesAutoSplits by Seosean with this command as well if you installed it, and it works the same.)");
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/ssthud " + EnumChatFormatting.YELLOW + "to open HUD GUI. "  + EnumChatFormatting.GRAY + "(You can edit the HUD of ZombiesAutoSplits by Seosean with this command as well if you installed it, and it works the same.)" +
+                            EnumChatFormatting.YELLOW + "\n· " + EnumChatFormatting.GREEN + "/sst checkupdate " + EnumChatFormatting.YELLOW + "to check the latest version.");
                 }
                 Minecraft.getMinecraft().thePlayer.addChatComponentMessage(commands);
             }
+        }else if(args.length == 1 && args[0].equals("checkupdate")){
+            ShowSpawnTime.getInstance().getUpdateDetect().checkUpdates();
         }else if (args.length > 1 && args[0].equals("copy")){
             StringBuilder text = new StringBuilder();
             int i;
@@ -166,6 +171,7 @@ public class CommandCommon extends CommandBase{
             completions.add("max");
             completions.add("ins");
             completions.add("ss");
+            completions.add("checkupdate");
         } else if (args.length == 2 && !args[0].equals("mode")) {
             if(args[0].equals("ins") || args[0].equals("max")) {
                 completions.add("2");
@@ -180,7 +186,6 @@ public class CommandCommon extends CommandBase{
             completions.add("hard");
             completions.add("rip");
         }
-
         return completions;
     }
 

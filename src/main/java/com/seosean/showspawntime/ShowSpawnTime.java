@@ -35,6 +35,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
+import scala.collection.script.Update;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -76,6 +77,7 @@ public class ShowSpawnTime
     private InternalTimer internalTimer;
     private SplitsTimer splitsTimer;
     private PowerUpDetect powerUpDetect;
+    private UpdateDetect updateDetect;
     private Utils utils;
     private final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
@@ -83,6 +85,9 @@ public class ShowSpawnTime
     public SplitsTimer getSplitsTimer() {return splitsTimer;}
     public PowerUpDetect getPowerUpDetect() { return powerUpDetect; }
     public Utils getUtils() { return utils; }
+    public UpdateDetect getUpdateDetect() {
+        return updateDetect;
+    }
 
     @EventHandler
     public void preinit(FMLPreInitializationEvent event){
@@ -95,6 +100,7 @@ public class ShowSpawnTime
     public void init(FMLInitializationEvent event)
     {
         internalTimer = new InternalTimer();
+        updateDetect = new UpdateDetect();
         instance = this;
         ClientRegistry.registerKeyBinding(this.keyToggleCountDown);
         ClientRegistry.registerKeyBinding(this.keyTogglePlayerInvisible);
@@ -107,6 +113,7 @@ public class ShowSpawnTime
         MinecraftForge.EVENT_BUS.register(new ConfigTip());
         MinecraftForge.EVENT_BUS.register(new Render());
         MinecraftForge.EVENT_BUS.register(new ParseModes());
+        MinecraftForge.EVENT_BUS.register(updateDetect);
         ClientCommandHandler.instance.registerCommand(new CommandCommon());
         ClientCommandHandler.instance.registerCommand(new CommandSSTConfig());
         ClientCommandHandler.instance.registerCommand(new CommandSSTHUD());

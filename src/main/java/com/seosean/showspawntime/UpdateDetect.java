@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.event.ClickEvent;
+import net.minecraft.event.HoverEvent;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.IChatComponent;
@@ -75,7 +76,9 @@ public class UpdateDetect {
                     }
                     if (newestVersionNumbers.get(i) > thisVersionNumbers.get(i)) {
                         IChatComponent newVersion = new ChatComponentText(EnumChatFormatting.AQUA+ "ShowSpawnTime: " + EnumChatFormatting.GREEN + "A new version " + newestVersion + " is available. Download it by clicking here.");
-                        newVersion.setChatStyle(newVersion.getChatStyle().setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/biscuut/LobbyGlow/releases")));
+                        IChatComponent downloadHover = new ChatComponentText(EnumChatFormatting.WHITE + "Click to Download");
+
+                        newVersion.setChatStyle(newVersion.getChatStyle().setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, downloadHover)).setChatClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, "https://github.com/Seosean/ShowSpawnTime/releases")));
                         Minecraft.getMinecraft().thePlayer.addChatComponentMessage(newVersion);
                         break;
                     }
