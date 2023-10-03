@@ -10,6 +10,7 @@
 ****
 ## Updates Logs
 ### Update 1.15.0 2023/10/3  
+· A more accurate internal timer. Redundant time recorder will be now splited with 0.01 instead of 0.05.  
 · Fixed a bug that you probably get kicked by server when a game starts.  
 · You can now move HUD over the screen with /ssthud.  
 · You can now edit config with /sstconfig.  
