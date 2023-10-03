@@ -1,10 +1,23 @@
 # ShowSpawnTime  
-
+  
 ## Latest Version
-[**1.14.4 Download**](https://github.com/Seosean/ShowSpawnTime/releases/download/sst/ShowSpawnTime-1.14.4.jar)
-*(Absolutely same as 1.15 BETA 1)*
+[**1.15.0 Download**](https://github.com/Seosean/ShowSpawnTime/releases/download/1.15.0/ShowSpawnTime-1.15.0.jar)  
+  
 ****
 ## Updates Logs
+### Update 1.15.0 2023/10/3  
+· Fixed a bug that you probably get kicked by server when a game starts.  
+· You can now move HUD over the screen with /ssthud.  
+· You can now edit config with /sstconfig.  
+· Added a new feature that the countdown of exist powerups will now display over the screen.  
+· Added a new feature that players' health will now display in the sidebar.  
+· Added a new feature that the amount of 3rd wave zombies will now display in the sidebar.  
+· Now if you installed ZombiesAutoSplits, you can directly edit its HUD position with /ssthud.  
+· Added commands of /sst mode normal/hard/rip and /sst ins/max/ss 2/3/4/5/6/7 to correct related feature if a incorrection or a closing of minecraft happens.  
+· Added an auto-check of updates and a command of /sst checkupdate to check if you are using on a latest version.  
+· Enhanced some features.  
+· Fixed few internal bugs.  
+  
 ### Update 1.14.4 2023/8/28  
 · Fixed a rare bug that you probably get kicked by server when a round ends.  
 · Now when a wave passed, it will become darker instead of reserving its color.  
