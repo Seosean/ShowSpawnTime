@@ -14,6 +14,12 @@ Seosean's one was forked from thamid's, I added a feature that you can now edit 
   
 ****
 ## Updates Logs
+### Update 1.15.1 2023/10/5  
+· Fixed a bug that your game will crash when you are playing at Simplified Chinese in hypixel Zombies. Its certainly hypixel's problem because it doesnt happen to Traditional Chinese i promise.  
+· Fixed a bug that log spammed crazily.  
+· Adjusted the description of Chinese, it's now looked much more normal.  
+· Added a new feature that you can now get when will the next powerup spawns in chat bar as a round starts.  
+  
 ### Update 1.15.0 2023/10/3  
 · A more accurate internal timer. Redundant time recorder will be now splited with 0.01 instead of 0.05.  
 · Fixed a bug that you probably get kicked by server when a game starts.  
