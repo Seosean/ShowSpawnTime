@@ -5,11 +5,17 @@
 
 ## The most necessary module to this mod.
 [**ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/tree/Mixin)  
+  
+What's the difference between Seosean's and Thamid's?  
+Seosean's one was forked from thamid's, I added a feature that you can now edit the position of HUD(the render of timer) with /splitshud or /ssthud.  
+(if you installed ShowSpawnTime, you can edit ZombiesAutoSplits's HUD with ShowSpawnTime's /ssthud command, and edit their HUDs together.)  
+  
 [**Download ZombiesAutoSplits by Seosean**](https://github.com/Seosean/ZombiesAutoSplits/releases/download/1.1/ZombiesAutoSplits-1.1.jar)  
   
 ****
 ## Updates Logs
 ### Update 1.15.0 2023/10/3  
+· A more accurate internal timer. Redundant time recorder will be now splited with 0.01 instead of 0.05.  
 · Fixed a bug that you probably get kicked by server when a game starts.  
 · You can now move HUD over the screen with /ssthud.  
 · You can now edit config with /sstconfig.  
@@ -19,6 +25,7 @@
 · Now if you installed ZombiesAutoSplits, you can directly edit its HUD position with /ssthud.  
 · Added commands of /sst mode normal/hard/rip and /sst ins/max/ss 2/3/4/5/6/7 to correct related feature if a incorrection or a closing of minecraft happens.  
 · Added an auto-check of updates and a command of /sst checkupdate to check if you are using on a latest version.  
+· Added a new feature that player invisibility is now integrated into ShowSpawnTime, it has a transparent effect when a player approuches. Turn on it in keyboard control.
 · Enhanced some features.  
 · Fixed few internal bugs.  
   
