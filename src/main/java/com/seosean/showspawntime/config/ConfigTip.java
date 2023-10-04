@@ -84,7 +84,7 @@ public class ConfigTip  {
             IChatComponent hudTips = new ChatComponentText(EnumChatFormatting.GOLD.toString() + EnumChatFormatting.BOLD + "  [HUD]");
             IChatComponent hudHover = new ChatComponentText(EnumChatFormatting.WHITE.toString() + "点击编辑 HUD");
 
-            IChatComponent featuresTips = new ChatComponentText(EnumChatFormatting.GREEN + "  [ 功能 ]");
+            IChatComponent featuresTips = new ChatComponentText(EnumChatFormatting.GREEN + "  [功能]");
             IChatComponent featuresHover = new ChatComponentText(EnumChatFormatting.GREEN + "点击查看本模组指令使用指南" +
                     EnumChatFormatting.WHITE + "\n· 显示回合内小波时间" +
                     EnumChatFormatting.WHITE + "\n· 僵尸生成时发出声音提示" +
@@ -97,7 +97,7 @@ public class ConfigTip  {
                     EnumChatFormatting.WHITE + "\n· 在计分板上显示第三波僵尸的剩余数量" +
                     EnumChatFormatting.WHITE + "\n· 在屏幕上显示当前地图增益剩余时间");
 
-            IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.RED + "  [ 配置界面故障时点击 ]");
+            IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.RED + "  [配置界面故障时点击]");
             IChatComponent glitchHover = new ChatComponentText(EnumChatFormatting.WHITE + "故障了？");
 
             ChatStyle configs = new ChatStyle().setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, configHover)).setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sstconfig"));
@@ -126,7 +126,7 @@ public class ConfigTip  {
             IChatComponent hudTips = new ChatComponentText(EnumChatFormatting.GOLD.toString() + EnumChatFormatting.BOLD + "  [HUD]");
             IChatComponent hudHover = new ChatComponentText(EnumChatFormatting.WHITE.toString() + "點擊編輯 HUD");
 
-            IChatComponent featuresTips = new ChatComponentText(EnumChatFormatting.GREEN + "  [ 功能 ]");
+            IChatComponent featuresTips = new ChatComponentText(EnumChatFormatting.GREEN + "  [功能]");
             IChatComponent featuresHover = new ChatComponentText(EnumChatFormatting.GREEN + "點擊查看本模組指令使用指南" +
                     EnumChatFormatting.WHITE + "\n· 顯示回合內小波時間" +
                     EnumChatFormatting.WHITE + "\n· 殭屍生成時發出聲音提示" +
@@ -138,7 +138,7 @@ public class ConfigTip  {
                     EnumChatFormatting.WHITE + "\n· 在計分板上顯示隊友的生命值" +
                     EnumChatFormatting.WHITE + "\n· 在計分板上第三波僵屍的剩餘數量" +
                     EnumChatFormatting.WHITE + "\n· 在荧幕上顯示增益的倒數計時");
-            IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.RED + "  [ 配寘介面故障時點擊 ]");
+            IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.RED + "  [配寘介面故障時點擊]");
             IChatComponent glitchHover = new ChatComponentText(EnumChatFormatting.WHITE + "故障了？");
 
             ChatStyle configs = new ChatStyle().setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, configHover)).setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sstconfig"));

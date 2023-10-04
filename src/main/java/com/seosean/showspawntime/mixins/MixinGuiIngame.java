@@ -1,7 +1,9 @@
 package com.seosean.showspawntime.mixins;
 
 import com.seosean.showspawntime.ShowSpawnTime;
+import com.seosean.showspawntime.hudposition.DelayedTask;
 import com.seosean.showspawntime.utils.LeftNotice;
+import com.seosean.showspawntime.utils.PowerUpDetect;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiIngame;
@@ -20,14 +22,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
-import static com.seosean.showspawntime.mapFile.Rounds.colorRegex;
-import static com.seosean.showspawntime.mapFile.Rounds.emojiRegex;
-import static com.seosean.showspawntime.mapFile.Rounds.parseSidebar;
+import static com.seosean.showspawntime.mapFile.Rounds.*;
 import static com.seosean.showspawntime.utils.ParseModes.diff;
 import static com.seosean.showspawntime.utils.SplitsTimer.recordedRound;
 import static com.seosean.showspawntime.utils.Utils.*;
@@ -53,6 +54,9 @@ public abstract class MixinGuiIngame {
     private static int[] r6SSRoundsAA = {16, 26, 36, 46, 66, 76, 86, 96};
     private static int[] r7SSRoundsAA = {17, 27, 37, 47, 67, 77, 87, 97};
 
+    private String regex = "(?:[\uD83C\uDF00-\uD83D\uDDFF]|[\uD83E\uDD00-\uD83E\uDDFF]|[\uD83D\uDE00-\uD83D\uDE4F]|[\uD83D\uDE80-\uD83D\uDEFF]|[\u2600-\u26FF]\uFE0F?|[\u2700-\u27BF]\uFE0F?|\u24C2\uFE0F?|[\uD83C\uDDE6-\uD83C\uDDFF]{1,2}|[\uD83C\uDD70\uD83C\uDD71\uD83C\uDD7E\uD83C\uDD7F\uD83C\uDD8E\uD83C\uDD91-\uD83C\uDD9A]\uFE0F?|[\u0023\u002A\u0030-\u0039]\uFE0F?\u20E3|[\u2194-\u2199\u21A9-\u21AA]\uFE0F?|[\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55]\uFE0F?|[\u2934\u2935]\uFE0F?|[\u3030\u303D]\uFE0F?|[\u3297\u3299]\uFE0F?|[\uD83C\uDE01\uD83C\uDE02\uD83C\uDE1A\uD83C\uDE2F\uD83C\uDE32-\uD83C\uDE3A\uD83C\uDE50\uD83C\uDE51]\uFE0F?|[\u203C\u2049]\uFE0F?|[\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE]\uFE0F?|[\u00A9\u00AE]\uFE0F?|[\u2122\u2139]\uFE0F?|\uD83C\uDC04\uFE0F?|\uD83C\uDCCF\uFE0F?|[\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA]\uFE0F?)";
+    private String colorRegex = "§[a-zA-Z0-9]";
+
     @Shadow public abstract FontRenderer getFontRenderer();
 
     @Shadow protected int lastPlayerHealth;
@@ -62,11 +66,17 @@ public abstract class MixinGuiIngame {
         if(ShowSpawnTime.Wave3LeftNotice) {
             if (isAllLegit()) {
                 if (text.contains("Zombies Left") || text.contains("剩余僵尸") || text.contains("剩下殭屍數")) {
+                    String amount = "";
+                    if(text.contains(":")) {
+                        amount = text.split(":")[1].replaceAll(regex, "").replaceAll(colorRegex, "").trim();
+                    }else if(text.contains("：")){
+                        amount = text.split("：")[1].replaceAll(regex, "").replaceAll(colorRegex, "").trim();
+                    }
                     if (isInDE()) {
-                        boolean isCleared = Integer.valueOf((text.split("§")[2].replace("a", "").trim())) <= LeftNotice.getDEW3Left(parseSidebar(), diff);
+                        boolean isCleared = Integer.valueOf(amount) <= LeftNotice.getDEW3Left(parseSidebar(), diff);
                         return text.concat(EnumChatFormatting.WHITE + " | " + (isCleared ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + ((LeftNotice.getDEW3Left(parseSidebar(), diff) == 0) ? "" : LeftNotice.getDEW3Left(parseSidebar(), diff)));
                     } else if (isInBB()) {
-                        boolean isCleared = Integer.valueOf((text.split("§")[2].replace("a", "").trim())) <= LeftNotice.getBBW3Left(parseSidebar(), diff);
+                        boolean isCleared = Integer.valueOf(amount) <= LeftNotice.getBBW3Left(parseSidebar(), diff);
                         return text.concat(EnumChatFormatting.WHITE + " | " + (isCleared ? EnumChatFormatting.GREEN : EnumChatFormatting.RED) + ((LeftNotice.getBBW3Left(parseSidebar(), diff) == 0) ? "" : LeftNotice.getBBW3Left(parseSidebar(), diff)));
                     }
                 }
@@ -75,8 +85,6 @@ public abstract class MixinGuiIngame {
         if(ShowSpawnTime.PlayerHealthNotice) {
             if(isAllLegit()) {
                 if (text.contains("§") && (text.contains(":") || text.contains("："))) {
-                    String regex = "(?:[\uD83C\uDF00-\uD83D\uDDFF]|[\uD83E\uDD00-\uD83E\uDDFF]|[\uD83D\uDE00-\uD83D\uDE4F]|[\uD83D\uDE80-\uD83D\uDEFF]|[\u2600-\u26FF]\uFE0F?|[\u2700-\u27BF]\uFE0F?|\u24C2\uFE0F?|[\uD83C\uDDE6-\uD83C\uDDFF]{1,2}|[\uD83C\uDD70\uD83C\uDD71\uD83C\uDD7E\uD83C\uDD7F\uD83C\uDD8E\uD83C\uDD91-\uD83C\uDD9A]\uFE0F?|[\u0023\u002A\u0030-\u0039]\uFE0F?\u20E3|[\u2194-\u2199\u21A9-\u21AA]\uFE0F?|[\u2B05-\u2B07\u2B1B\u2B1C\u2B50\u2B55]\uFE0F?|[\u2934\u2935]\uFE0F?|[\u3030\u303D]\uFE0F?|[\u3297\u3299]\uFE0F?|[\uD83C\uDE01\uD83C\uDE02\uD83C\uDE1A\uD83C\uDE2F\uD83C\uDE32-\uD83C\uDE3A\uD83C\uDE50\uD83C\uDE51]\uFE0F?|[\u203C\u2049]\uFE0F?|[\u25AA\u25AB\u25B6\u25C0\u25FB-\u25FE]\uFE0F?|[\u00A9\u00AE]\uFE0F?|[\u2122\u2139]\uFE0F?|\uD83C\uDC04\uFE0F?|\uD83C\uDCCF\uFE0F?|[\u231A\u231B\u2328\u23CF\u23E9-\u23F3\u23F8-\u23FA]\uFE0F?)";
-                    String colorRegex = "§[a-zA-Z0-9]";
                     String playerName = "";
                     if(text.contains(":")) {
                         playerName = text.split(":")[0].replaceAll(regex, "").replaceAll(colorRegex, "").trim();
@@ -86,7 +94,7 @@ public abstract class MixinGuiIngame {
                     if (playerName.length() >= 2) {
                         if (getPlayerEntity(playerName) != null) {
                             String trippedText = text.replaceAll(regex, "").replaceAll(colorRegex, "").trim();
-                            if (trippedText.contains(": REVIVE") || trippedText.contains(": QUIT") || trippedText.contains(": DEAD") || trippedText.contains("： 等待救援") || trippedText.contains("： 已退出") || trippedText.contains("： 已死亡") || trippedText.contains("： 等待復活") || trippedText.contains("： 已退出") || trippedText.contains("： 已死亡")) {
+                            if (trippedText.contains(": REVIVE") || trippedText.contains(": QUIT") || trippedText.contains(": DEAD") || trippedText.contains(": 等待救援") || trippedText.contains("： 已退出") || trippedText.contains(": 已死亡") || trippedText.contains(": 等待復活") || trippedText.contains(": 已退出") || trippedText.contains(": 已死亡")) {
                                 return text;
                             }
                             float health = getPlayerEntity(playerName).getHealth();
@@ -158,14 +166,6 @@ public abstract class MixinGuiIngame {
         return l1;
     }
 
-//    private List<EntityPlayer> getPlayerList(){
-//        List<EntityPlayer> playerList = new ArrayList<>();
-//        playerList.addAll(Minecraft.getMinecraft().theWorld.loadedEntityList.stream()
-//                  .filter(entity -> entity instanceof EntityPlayer)
-//                  .map(entity -> (EntityPlayer)entity).collect(Collectors.toList()));
-//        return playerList;
-//    }
-
     private List<EntityPlayer> getPlayerList() {
         return new CopyOnWriteArrayList<>(Minecraft.getMinecraft().theWorld.loadedEntityList.stream()
                 .filter(entity -> entity instanceof EntityPlayer)
@@ -196,6 +196,7 @@ public abstract class MixinGuiIngame {
     @Inject(method = "displayTitle", at = @At(value = "RETURN"))
     private void displayTitle(String p_175178_1_, String p_175178_2_, int p_175178_3_, int p_175178_4_, int p_175178_5_, CallbackInfo callbackInfo){
         this.detectTitle(p_175178_1_, p_175178_2_);
+        new DelayedTask(() -> this.detectNextPowerupRound(p_175178_1_), 50);
     }
 
     private void detectTitle(String title, String subTitle){
@@ -203,6 +204,9 @@ public abstract class MixinGuiIngame {
         int[] skipRound;
 
         if(!isAllLegit()){
+            return;
+        }
+        if(title == null){
             return;
         }
         if(title.isEmpty()){
@@ -309,7 +313,7 @@ public abstract class MixinGuiIngame {
                 return;
             }
             for (int i = 105; i > 0; i--) {
-                if (titleText.contains("赢") || titleText.contains("贏")) {
+                if (titleText.contains("Win!") || titleText.contains("赢") || titleText.contains("贏")) {
                     recordedRound = 106;
                     record = true;
                     break;
@@ -335,7 +339,7 @@ public abstract class MixinGuiIngame {
                 return;
             }
             for (int i = 30; i > 0; i--) {
-                if (titleText.contains("赢") || titleText.contains("贏")) {
+                if (titleText.contains("Win!") || titleText.contains("赢") || titleText.contains("贏")) {
                     recordedRound = 31;
                     record = true;
                     break;
@@ -411,6 +415,135 @@ public abstract class MixinGuiIngame {
                 IChatComponent warning = new ChatComponentText(EnumChatFormatting.RED + "CANNOT RECORD THE TIME, PLEASE REPORT THIS TO Seosean");
                 Minecraft.getMinecraft().thePlayer.addChatComponentMessage(warning);
             }
+        }
+    }
+
+    private void detectNextPowerupRound(String p_175178_1_) {
+        if(!isAllLegit()){
+            return;
+        }
+        if(p_175178_1_ == null){
+            return;
+        }
+        if(p_175178_1_.isEmpty()){
+            return;
+        }
+        p_175178_1_ = p_175178_1_.replaceAll(regex, "").replaceAll(colorRegex, "").trim();
+        if(!p_175178_1_.contains("Round") && !p_175178_1_.contains("回合")){
+            return;
+        }
+        int round = parseSidebar();
+        IChatComponent basic = new ChatComponentText(EnumChatFormatting.GOLD + "[" + EnumChatFormatting.WHITE + "ShowSpawnTime" + EnumChatFormatting.GOLD + "] ");
+        List<IChatComponent> chatBox = new ArrayList<>();
+        int[][] rounds = {{}, {}, {}}; // insRounds, maxRounds, ssRounds
+
+        PowerUpDetect powerUpDetect = ShowSpawnTime.getInstance().getPowerUpDetect();
+        int insRound = powerUpDetect.insRound;
+        int maxRound = powerUpDetect.maxRound;
+        int ssRound = powerUpDetect.ssRound;
+
+        if (insRound == 2) {
+            switch (getMap()) {
+                case 0:
+                    rounds[0] = r2InsRoundsDE;
+                    break;
+                case 1:
+                    rounds[0] = r2InsRoundsBB;
+                    break;
+                case 2:
+                    rounds[0] = r2InsRoundsAA;
+                    break;
+            }
+        } else if (insRound == 3) {
+            switch (getMap()) {
+                case 0:
+                case 1:
+                    rounds[0] = r3InsRoundsDEBB;
+                    break;
+                case 2:
+                    rounds[0] = r3InsRoundsAA;
+                    break;
+            }
+        }
+
+        if (maxRound == 2) {
+            switch (getMap()) {
+                case 0:
+                    rounds[1] = r2MaxRoundsDE;
+                    break;
+                case 1:
+                    rounds[1] = r2MaxRoundsBB;
+                    break;
+                case 2:
+                    rounds[1] = r2MaxRoundsAA;
+                    break;
+            }
+        } else if (maxRound == 3) {
+            switch (getMap()) {
+                case 0:
+                case 1:
+                    rounds[1] = r3MaxRoundsDEBB;
+                    break;
+                case 2:
+                    rounds[1] = r3MaxRoundsAA;
+                    break;
+            }
+        }
+
+        if (getMap() == 2) {
+            if (ssRound == 5) {
+                rounds[2] = r5SSRoundsAA;
+            } else if (maxRound == 6) {
+                rounds[2] = r6SSRoundsAA;
+            } else if (maxRound == 7) {
+                rounds[2] = r7SSRoundsAA;
+            }
+        }
+
+        for (int i = 0; i < rounds.length; i++) {
+            int[] roundArray = rounds[i];
+            if (roundArray.length != 0) {
+                for (int noticeRound : roundArray) {
+                    if (noticeRound > round) {
+                        String powerup;
+                        String color;
+                        switch (i) {
+                            case 0:
+                                powerup = "Insta Kill";
+                                color = String.valueOf(EnumChatFormatting.RED);
+                                break;
+                            case 1:
+                                powerup = "Max Ammo";
+                                color = String.valueOf(EnumChatFormatting.BLUE);
+                                break;
+                            case 2:
+                                powerup = "Shopping Spree";
+                                color = String.valueOf(EnumChatFormatting.DARK_PURPLE);
+                                break;
+                            default:
+                                powerup = "";
+                                color = "";
+                        }
+                        IChatComponent roundNotice = new ChatComponentText(color + powerup + EnumChatFormatting.WHITE + " in " + EnumChatFormatting.AQUA + noticeRound);
+                        chatBox.add(roundNotice);
+                        break;
+                    }
+                }
+            }
+        }
+        if(chatBox.size() == 0) {
+            return;
+        }
+            for(int i = 0; i < chatBox.size() ; i++){
+            basic.appendSibling(chatBox.get(i));
+            if(i != chatBox.size() - 1){
+                basic.appendSibling(new ChatComponentText(EnumChatFormatting.WHITE + ", "));
+            }else{
+                basic.appendSibling(new ChatComponentText(EnumChatFormatting.WHITE + "."));
+            }
+        }
+        if(powerUpDetect.insRound != 0 || powerUpDetect.maxRound != 0 || powerUpDetect.ssRound != 0) {
+            Minecraft.getMinecraft().thePlayer.addChatComponentMessage(basic);
         }
     }
 }

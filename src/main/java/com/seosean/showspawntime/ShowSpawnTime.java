@@ -47,7 +47,7 @@ import java.util.concurrent.ScheduledExecutorService;
 public class ShowSpawnTime
 {
     public static final String MODID = "ShowSpawnTime";
-    public static final String VERSION = "1.15.0";
+    public static final String VERSION = "1.15.1 Pre-1";
     private static ShowSpawnTime instance;
     private Logger logger;
     private Configuration config;

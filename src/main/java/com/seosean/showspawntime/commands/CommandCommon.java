@@ -49,14 +49,14 @@ public class CommandCommon extends CommandBase{
                     Minecraft.getMinecraft().thePlayer.addChatComponentMessage(glitchTips.appendSibling(configfolder));
                 }else if(isSimplifiedChinese()){
                     IChatComponent configHover = new ChatComponentText(EnumChatFormatting.WHITE.toString() + "点击重置配置文件");
-                    IChatComponent configfolder = new ChatComponentText(EnumChatFormatting.GOLD.toString() + " [ 重置配寘 ]");
+                    IChatComponent configfolder = new ChatComponentText(EnumChatFormatting.GOLD.toString() + " [重置配置]");
                     IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.AQUA + ">> " + EnumChatFormatting.WHITE + "如果你发现配置界面出现问题， 请点击: ");
                     ChatStyle configs = new ChatStyle().setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, configHover)).setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sst feature glitch reset"));
                     configfolder.setChatStyle(configs);
                     Minecraft.getMinecraft().thePlayer.addChatComponentMessage(glitchTips.appendSibling(configfolder));
                 }else if(isTraditionalChinese()){
                     IChatComponent configHover = new ChatComponentText(EnumChatFormatting.WHITE.toString() + "點擊重置配寘");
-                    IChatComponent configfolder = new ChatComponentText(EnumChatFormatting.GOLD.toString() + " [ 重置配寘 ]");
+                    IChatComponent configfolder = new ChatComponentText(EnumChatFormatting.GOLD.toString() + " [重置配寘]");
                     IChatComponent glitchTips = new ChatComponentText(EnumChatFormatting.AQUA + ">> " + EnumChatFormatting.WHITE + "如果你發現配寘介面出現問題， 請點擊: ");
                     ChatStyle configs = new ChatStyle().setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, configHover)).setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/sst feature glitch reset"));
                     configfolder.setChatStyle(configs);

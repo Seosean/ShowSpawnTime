@@ -80,4 +80,15 @@ public class Utils {
             return "";
         }
     }
+
+    public static int getMap(){
+        if(isInDE()){
+            return 0;
+        }else if(isInBB()){
+            return 1;
+        }else if(isInAA()){
+            return 2;
+        }
+        return -1;
+    }
 }
