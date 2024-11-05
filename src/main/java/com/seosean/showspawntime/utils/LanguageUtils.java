@@ -98,8 +98,11 @@ public class LanguageUtils {
 //    private static ZombiesMap cacheMap = ZombiesMap.NULL;
 
     public static ZombiesMap getMap() {
-        BlockPos blockPos = new BlockPos(0, 72, 12);
         World world = Minecraft.getMinecraft().theWorld;
+        if (world == null) {
+            return ZombiesMap.NULL;
+        }
+        BlockPos blockPos = new BlockPos(0, 72, 12);
         IBlockState blockState = world.getBlockState(blockPos);
         Block block = blockState.getBlock();
         String blockName = block.getUnlocalizedName();
